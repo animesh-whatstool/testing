@@ -1,5 +1,8 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors'
+import path from 'path';
+import fs from 'fs'
+
 const app: Express = express()
 const routes = require('./src/routes/Routes')
 
@@ -15,7 +18,11 @@ app.use(cors({
 app.use('/', routes)
 
 app.get('/', async (req, res, next) => {
-    res.send({ success: true, status: "Live", listeningPort: PORT, project: "testing" })
+    const packageJsonPath = path.join(__dirname, 'package.json').replace('dist/', '');
+    const packageJsonData = fs.readFileSync(packageJsonPath, 'utf8');
+    const { version } = JSON.parse(packageJsonData);
+
+    res.send({ success: true, status: "Live", listeningPort: PORT, project: "testing", version })
 })
 
 app.listen(PORT, () => {

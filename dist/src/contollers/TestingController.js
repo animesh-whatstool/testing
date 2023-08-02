@@ -12,6 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.testing = void 0;
 const testing = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        return res.status(200).send({
+            "type": "text",
+            "text": {
+                "body": `Congratulations🎉🎉🎉! Your slot has been booked. \n Service Name- ${"sName"}\n Booked Date- ${"bDate"}\n Booked Time- ${"bTime"}\n Address- ${"bAdd"}`
+            }
+        });
     }
     catch (error) {
         return res.send(500).send({ status: false, message: error.message });

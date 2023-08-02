@@ -14,6 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 const app = (0, express_1.default)();
 const routes = require('./src/routes/Routes');
 const PORT = 3003;
@@ -25,9 +27,12 @@ app.use((0, cors_1.default)({
 }));
 app.use('/', routes);
 app.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send({ success: true, status: "Live", listeningPort: PORT, project: "testing" });
+    const packageJsonPath = path_1.default.join(__dirname, 'package.json').replace('dist/', '');
+    const packageJsonData = fs_1.default.readFileSync(packageJsonPath, 'utf8');
+    const { version } = JSON.parse(packageJsonData);
+    res.send({ success: true, status: "Live", listeningPort: PORT, project: "testing", version });
 }));
 app.listen(PORT, () => {
     console.log(`Server is Listing on Port: ${PORT}`);
 });
-//https://clean-fanatics-booking.onrender.com
+//https://tan-fierce-dolphin.cyclic.cloud/
