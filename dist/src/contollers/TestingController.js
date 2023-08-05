@@ -8,8 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.testing = void 0;
+exports.evalFunction = exports.createFunction = exports.testing = void 0;
+const General_1 = __importDefault(require("../models/General"));
 const testing = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return res.status(200).send({
@@ -20,7 +24,38 @@ const testing = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        return res.send(500).send({ status: false, message: error.message });
+        return res.status(500).send({ status: false, message: error.message });
     }
 });
 exports.testing = testing;
+const createFunction = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const saveData = {
+            name: req.body.name,
+            code: req.body.code
+        };
+        const cloud_function = yield General_1.default.create(saveData);
+        return res.status(200).send({ status: true, message: 'success', data: cloud_function });
+    }
+    catch (error) {
+        return res.status(500).send({ status: false, message: error.message });
+    }
+});
+exports.createFunction = createFunction;
+const evalFunction = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = {
+            name: req.body.name,
+            param_1: req.body.param_1,
+            param_2: req.body.param_2,
+        };
+        const func = yield General_1.default.findOne({ name: data.name });
+        const userDefinedFunction = eval(`(${func.code})`);
+        const sum = userDefinedFunction(data.param_1, data.param_2);
+        return res.status(200).send({ status: true, message: 'success', data: sum });
+    }
+    catch (error) {
+        return res.status(500).send({ status: false, message: error.message });
+    }
+});
+exports.evalFunction = evalFunction;
