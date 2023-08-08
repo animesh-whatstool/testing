@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import GeneralModel, { GeneralBean } from "../models/General";
+import axios from "axios";
 
 
 export const testing = async (req: Request, res: Response, next: NextFunction) => {
@@ -50,6 +51,24 @@ export const evalFunction = async (req: Request, res: Response, next: NextFuncti
 
 
         return res.status(200).send({ status: true, message: 'success', data: sum })
+    } catch (error: any) {
+        return res.status(500).send({ status: false, message: error.message })
+    }
+}
+
+
+export const fbAdschatBotQualifiedWebhook = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+
+        axios.post(
+            'https://whatstool-new-testing.de.r.appspot.com/webhook/v1/fb_ads_chatbot_qualified',
+            { mobile: req.body.data.contact.mobile }
+        )
+            .then(res => console.log(res.data))
+            .catch(err => console.error(err.message))
+
+        return next({ success: true })
+
     } catch (error: any) {
         return res.status(500).send({ status: false, message: error.message })
     }

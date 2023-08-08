@@ -31,7 +31,8 @@ const generalSchema = new mongoose_1.Schema({
         unique: true
     },
     code: {
-        type: mongoose_1.Schema.Types.Mixed
+        type: String,
+        trim: true
     }
 }, { timestamps: true });
 const GeneralModel = mongoose_1.default.model('General', generalSchema);

@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.evalFunction = exports.createFunction = exports.testing = void 0;
+exports.fbAdschatBotQualifiedWebhook = exports.evalFunction = exports.createFunction = exports.testing = void 0;
 const General_1 = __importDefault(require("../models/General"));
+const axios_1 = __importDefault(require("axios"));
 const testing = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return res.status(200).send({
@@ -59,3 +60,15 @@ const evalFunction = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.evalFunction = evalFunction;
+const fbAdschatBotQualifiedWebhook = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        axios_1.default.post('https://whatstool-new-testing.de.r.appspot.com/webhook/v1/fb_ads_chatbot_qualified', { mobile: req.body.data.contact.mobile })
+            .then(res => console.log(res.data))
+            .catch(err => console.error(err.message));
+        return next({ success: true });
+    }
+    catch (error) {
+        return res.status(500).send({ status: false, message: error.message });
+    }
+});
+exports.fbAdschatBotQualifiedWebhook = fbAdschatBotQualifiedWebhook;
