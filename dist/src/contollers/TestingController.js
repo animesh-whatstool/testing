@@ -132,6 +132,7 @@ const fbAdschatBotQualifiedAppointmentWebhook = (req, res, next) => __awaiter(vo
             .then(res => console.log(res.data))
             .catch(err => console.error(err.message));
         console.log({
+            fs_contact_id: params.fs_contact_id,
             mobile: params.mobile,
             from_date: params.time_slot.start,
             end_date: params.time_slot.end
