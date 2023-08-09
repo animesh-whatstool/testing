@@ -62,7 +62,9 @@ export const fbAdschatBotQualifiedWebhook = async (req: Request, res: Response, 
 
         axios.post(
             'https://whatstool-new-testing.de.r.appspot.com/webhook/v1/fb_ads_chatbot_qualified',
-            { mobile: req.body.data.contact.mobile }
+            {
+                mobile: req.body.mobile,
+            }
         )
             .then(res => console.log(res.data))
             .catch(err => console.error(err.message))
