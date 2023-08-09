@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import GeneralModel, { GeneralBean } from "../models/General";
 import axios from "axios";
+import * as momentTz from 'moment-timezone';
+
 
 
 export const testing = async (req: Request, res: Response, next: NextFunction) => {
@@ -64,6 +66,53 @@ export const fbAdschatBotQualifiedWebhook = async (req: Request, res: Response, 
             'https://whatstool-new-testing.de.r.appspot.com/webhook/v1/fb_ads_chatbot_qualified',
             {
                 mobile: req.body.mobile,
+            }
+        )
+            .then(res => console.log(res.data))
+            .catch(err => console.error(err.message))
+
+        return res.status(200).send({ status: true, message: 'success', data: true })
+
+    } catch (error: any) {
+        return res.status(500).send({ status: false, message: error.message })
+    }
+}
+
+
+export const fbAdschatBotQualifiedAppointmentWebhook = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+
+        const currentDate = momentTz.tz('Asia/Kolkata');
+        const tomorrowDate = currentDate.clone().add(1, 'day');
+        const tomorrow = tomorrowDate.format('ddd MMM DD YYYY');
+        const tz = ':00:00 GMT+0530 (IST)'
+        const time_map: { [key: string]: { start: string, end: string } } = {
+            "10.00 - 11.00 AM": { start: `${tomorrow} 10${tz}`, end: `${tomorrow} 11${tz}` },
+            "11.00 - 12.00 PM": { start: `${tomorrow} 11${tz}`, end: `${tomorrow} 12${tz}` },
+            "12.00 - 01.00 PM": { start: `${tomorrow} 12${tz}`, end: `${tomorrow} 13${tz}` },
+            "01.00 - 02.00 PM": { start: `${tomorrow} 13${tz}`, end: `${tomorrow} 14${tz}` },
+            "02.00 - 03.00 PM": { start: `${tomorrow} 14${tz}`, end: `${tomorrow} 15${tz}` },
+            "03.00 - 04.00 PM": { start: `${tomorrow} 15${tz}`, end: `${tomorrow} 16${tz}` },
+            "04.00 - 05.00 PM": { start: `${tomorrow} 16${tz}`, end: `${tomorrow} 17${tz}` },
+            "05.00 - 06.00 PM": { start: `${tomorrow} 17${tz}`, end: `${tomorrow} 18${tz}` },
+            "06.00 - 07.00 PM": { start: `${tomorrow} 18${tz}`, end: `${tomorrow} 19${tz}` }
+        }
+
+        const params = {
+            time_slot: time_map[req.body.time_slot],
+            mobile: req.body.mobile,
+        }
+
+        if (!params.time_slot){
+            return res.status(400).send({ status: false, message: `Invalid time slot : ${req.body.time_slot}` }) 
+        }
+
+        axios.post(
+            'https://whatstool-new-testing.de.r.appspot.com/webhook/v1/fb_ads_create_meeting',
+            {
+                mobile: params.mobile,
+                from_date: params.time_slot.start,
+                end_date: params.time_slot.end
             }
         )
             .then(res => console.log(res.data))

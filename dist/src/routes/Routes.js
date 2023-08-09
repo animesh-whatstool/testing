@@ -9,5 +9,6 @@ const router = express_1.default.Router();
 router.post('/test/url', TestingController_1.testing);
 router.post('/create_function', TestingController_1.createFunction);
 router.post('/eval_function', TestingController_1.evalFunction);
-router.post('/chatbot_qualified', TestingController_1.fbAdschatBotQualifiedWebhook);
+router.post('/chatbot_qualified_crm_update', TestingController_1.fbAdschatBotQualifiedWebhook);
+router.post('/chatbot_qualified_crm_appointment', TestingController_1.fbAdschatBotQualifiedAppointmentWebhook);
 module.exports = router;
