@@ -63,7 +63,7 @@ export const fbAdschatBotQualifiedWebhook = async (req: Request, res: Response, 
     try {
 
         axios.post(
-            'https://whatstool-new-testing.de.r.appspot.com/webhook/v1/fb_ads_chatbot_qualified',
+            'https://api.whatstool.business/webhook/v1/fb_ads_chatbot_qualified',
             {
                 mobile: req.body.mobile,
             }
@@ -109,7 +109,7 @@ export const fbAdschatBotQualifiedAppointmentWebhook = async (req: Request, res:
         }
 
         axios.post(
-            'https://whatstool-new-testing.de.r.appspot.com/webhook/v1/fb_ads_create_meeting',
+            'https://api.whatstool.business/webhook/v1/fb_ads_create_meeting',
             {
                 mobile: params.mobile,
                 fs_contact_id: params.fs_contact_id,
