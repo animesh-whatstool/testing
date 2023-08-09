@@ -120,10 +120,14 @@ export const fbAdschatBotQualifiedAppointmentWebhook = async (req: Request, res:
 
 
         return res.status(200).send({
-            type: "text",
-            text: `Thank you !\n
-            You meeting is schedule at ${params.time_slot.start}\n
-            Someone from our team will reach out to you soon.`
+            data: {
+                type: "text",
+                text: {
+                    body: `Thank you !\n
+                You meeting is schedule at ${params.time_slot.start}\n
+                Someone from our team will reach out to you soon.`
+                }
+            }
         })
 
     } catch (error: any) {
