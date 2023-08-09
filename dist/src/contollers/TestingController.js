@@ -133,7 +133,7 @@ const fbAdschatBotQualifiedAppointmentWebhook = (req, res, next) => __awaiter(vo
         return res.status(200).send({
             type: "text",
             text: {
-                body: `Thank you! \n You meeting is schedule on *${sch}*\n Someone from our team will reach out to you soon.`
+                body: `Thank you! \n Your meeting is schedule on *${sch}*.\n Someone from our team will reach out to you soon.`
             }
         });
     }
