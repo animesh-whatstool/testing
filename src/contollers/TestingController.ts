@@ -117,17 +117,17 @@ export const fbAdschatBotQualifiedAppointmentWebhook = async (req: Request, res:
                 end_date: params.time_slot.end
             }
         )
-            .then(res => console.log(res.data))
+            .then(res => console.log("Response Data:",res.data))
             .catch(err => console.error(err.message))
 
-        console.log(
-            {
-                fs_contact_id: params.fs_contact_id,
-                mobile: params.mobile,
-                from_date: params.time_slot.start,
-                end_date: params.time_slot.end
-            }
-        )
+        // console.log(
+        //     {
+        //         fs_contact_id: params.fs_contact_id,
+        //         mobile: params.mobile,
+        //         from_date: params.time_slot.start,
+        //         end_date: params.time_slot.end
+        //     }
+        // )
 
         return res.status(200).send({ status: true, message: 'success', data: true })
 
