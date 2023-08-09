@@ -118,20 +118,19 @@ const fbAdschatBotQualifiedAppointmentWebhook = (req, res, next) => __awaiter(vo
         const params = {
             time_slot: time_map[req.body.time_slot],
             mobile: req.body.mobile,
+            fs_contact_id: req.body.fs_contact_id
         };
         if (!params.time_slot) {
             return res.status(400).send({ status: false, message: `Invalid time slot : ${req.body.time_slot}` });
         }
-        // axios.post(
-        //     'https://whatstool-new-testing.de.r.appspot.com/webhook/v1/fb_ads_create_meeting',
-        //     {
-        //         mobile: params.mobile,
-        //         from_date: params.time_slot.start,
-        //         end_date: params.time_slot.end
-        //     }
-        // )
-        //     .then(res => console.log(res.data))
-        //     .catch(err => console.error(err.message))
+        axios_1.default.post('https://whatstool-new-testing.de.r.appspot.com/webhook/v1/fb_ads_create_meeting', {
+            mobile: params.mobile,
+            fs_contact_id: params.fs_contact_id,
+            from_date: params.time_slot.start,
+            end_date: params.time_slot.end
+        })
+            .then(res => console.log(res.data))
+            .catch(err => console.error(err.message));
         console.log({
             mobile: params.mobile,
             from_date: params.time_slot.start,
