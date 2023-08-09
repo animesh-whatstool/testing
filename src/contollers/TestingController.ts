@@ -69,7 +69,7 @@ export const fbAdschatBotQualifiedWebhook = async (req: Request, res: Response, 
             .then(res => console.log(res.data))
             .catch(err => console.error(err.message))
 
-        return next({ success: true })
+        return res.status(200).send({ status: true, message: 'success', data: true })
 
     } catch (error: any) {
         return res.status(500).send({ status: false, message: error.message })
