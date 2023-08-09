@@ -108,7 +108,7 @@ export const fbAdschatBotQualifiedAppointmentWebhook = async (req: Request, res:
             return res.status(400).send({ status: false, message: `Invalid time slot : ${req.body.time_slot}` })
         }
 
-        axios.post(
+        const response = await axios.post(
             'https://api.whatstool.business/webhook/v1/fb_ads_create_meeting',
             {
                 mobile: params.mobile,
@@ -117,19 +117,9 @@ export const fbAdschatBotQualifiedAppointmentWebhook = async (req: Request, res:
                 end_date: params.time_slot.end
             }
         )
-            .then(res => console.log("Response Data:",res.data))
-            .catch(err => console.error(err.message))
 
-        // console.log(
-        //     {
-        //         fs_contact_id: params.fs_contact_id,
-        //         mobile: params.mobile,
-        //         from_date: params.time_slot.start,
-        //         end_date: params.time_slot.end
-        //     }
-        // )
 
-        return res.status(200).send({ status: true, message: 'success', data: true })
+        return res.status(200).send({ status: true, message: 'success', data: response.data })
 
     } catch (error: any) {
         return res.status(500).send({ status: false, message: error.message })
