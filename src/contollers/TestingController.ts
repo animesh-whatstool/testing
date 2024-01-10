@@ -103,7 +103,7 @@ export const fbAdschatBotQualifiedAppointmentWebhook = async (req: Request, res:
         }
 
         if (!params.time_slot) {
-            return res.status(400).send({ status: false, message: `Invalid time slot : ${req.body}` })
+            return res.status(400).send({ status: false, message: `Invalid time slot:`, data: req.body })
         }
 
         const response = await axios.post(

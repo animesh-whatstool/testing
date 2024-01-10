@@ -117,7 +117,7 @@ const fbAdschatBotQualifiedAppointmentWebhook = (req, res, next) => __awaiter(vo
             fs_contact_id: req.body.fs_contact_id
         };
         if (!params.time_slot) {
-            return res.status(400).send({ status: false, message: `Invalid time slot : ${req.body}` });
+            return res.status(400).send({ status: false, message: `Invalid time slot:`, data: req.body });
         }
         const response = yield axios_1.default.post('https://api.whatstool.business/webhook/v1/fb_ads_create_meeting', {
             mobile: params.mobile,
