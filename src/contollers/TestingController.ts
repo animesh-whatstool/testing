@@ -62,14 +62,12 @@ export const evalFunction = async (req: Request, res: Response, next: NextFuncti
 export const fbAdschatBotQualifiedWebhook = async (req: Request, res: Response, next: NextFunction) => {
     try {
 
-        axios.post(
+        await axios.post(
             'https://api.whatstool.business/webhook/v1/fb_ads_chatbot_qualified',
-            {
-                mobile: req.body.mobile,
-            }
+            
+            { mobile: req.body.mobile }
         )
-            .then(res => console.log(res.data))
-            .catch(err => console.error(err.message))
+
 
         return res.status(200).send({ status: true, message: 'success', data: true })
 
@@ -105,7 +103,7 @@ export const fbAdschatBotQualifiedAppointmentWebhook = async (req: Request, res:
         }
 
         if (!params.time_slot) {
-            return res.status(400).send({ status: false, message: `Invalid time slot : ${req.body.time_slot}` })
+            return res.status(400).send({ status: false, message: `Invalid time slot : ${req.body}` })
         }
 
         const response = await axios.post(

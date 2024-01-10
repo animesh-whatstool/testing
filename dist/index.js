@@ -16,7 +16,6 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-const mongoose_1 = __importDefault(require("mongoose"));
 const app = (0, express_1.default)();
 const routes = require('./src/routes/Routes');
 const PORT = 3003;
@@ -26,9 +25,11 @@ app.use((0, cors_1.default)({
     origin: '*',
     optionsSuccessStatus: 200
 }));
-mongoose_1.default.connect('mongodb+srv://animesh-dey98:99YMUC4CD06Inl2W@cluster0.vhmqo.mongodb.net/experiments')
-    .then(resolve => { console.log("MongoDB Connected"); })
-    .catch(reject => { console.error("MongoDB Connection Failed"); });
+// mongoose.connect(
+//     'mongodb+srv://animesh-dey98:99YMUC4CD06Inl2W@cluster0.vhmqo.mongodb.net/experiments',
+// )
+//     .then(resolve => { console.log("MongoDB Connected") })
+//     .catch(reject => { console.error("MongoDB Connection Failed") })
 app.use('/', routes);
 app.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const packageJsonPath = path_1.default.join(__dirname, 'package.json').replace('dist/', '');

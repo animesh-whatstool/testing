@@ -86,11 +86,7 @@ const evalFunction = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
 exports.evalFunction = evalFunction;
 const fbAdschatBotQualifiedWebhook = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        axios_1.default.post('https://api.whatstool.business/webhook/v1/fb_ads_chatbot_qualified', {
-            mobile: req.body.mobile,
-        })
-            .then(res => console.log(res.data))
-            .catch(err => console.error(err.message));
+        yield axios_1.default.post('https://api.whatstool.business/webhook/v1/fb_ads_chatbot_qualified', { mobile: req.body.mobile });
         return res.status(200).send({ status: true, message: 'success', data: true });
     }
     catch (error) {
@@ -121,7 +117,7 @@ const fbAdschatBotQualifiedAppointmentWebhook = (req, res, next) => __awaiter(vo
             fs_contact_id: req.body.fs_contact_id
         };
         if (!params.time_slot) {
-            return res.status(400).send({ status: false, message: `Invalid time slot : ${req.body.time_slot}` });
+            return res.status(400).send({ status: false, message: `Invalid time slot : ${req.body}` });
         }
         const response = yield axios_1.default.post('https://api.whatstool.business/webhook/v1/fb_ads_create_meeting', {
             mobile: params.mobile,

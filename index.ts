@@ -2,7 +2,6 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors'
 import path from 'path';
 import fs from 'fs'
-import mongoose from 'mongoose'
 
 const app: Express = express()
 const routes = require('./src/routes/Routes')
@@ -17,11 +16,11 @@ app.use(cors({
 }))
 
 
-mongoose.connect(
-    'mongodb+srv://animesh-dey98:99YMUC4CD06Inl2W@cluster0.vhmqo.mongodb.net/experiments',
-)
-    .then(resolve => { console.log("MongoDB Connected") })
-    .catch(reject => { console.error("MongoDB Connection Failed") })
+// mongoose.connect(
+//     'mongodb+srv://animesh-dey98:99YMUC4CD06Inl2W@cluster0.vhmqo.mongodb.net/experiments',
+// )
+//     .then(resolve => { console.log("MongoDB Connected") })
+//     .catch(reject => { console.error("MongoDB Connection Failed") })
 
 app.use('/', routes)
 
